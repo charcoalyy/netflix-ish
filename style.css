@@ -1,0 +1,491 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color:rgb(33, 33, 33);
+    --primary-color: #E50914;
+    --primary-hover-color: #ff0916;
+}
+
+.landing {
+    height: 100vh;
+    background-size: cover;
+    background-image: radial-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.9) 90%), 
+	url('https://assets.nflxext.com/ffe/siteui/vlv3/c732cb00-be61-4d64-b8c3-99f022e7a123/572a6b80-35da-4731-865a-e94f95c677e6/CA-en-20220620-popsignuptwoweeks-perspective_alpha_website_large.jpg');
+    letter-spacing: 0.044rem;
+}
+
+/*HEADER*/
+.logo {
+    position: absolute;
+    margin: 1.875rem 3.75rem;
+}
+
+#logo {
+    height: 2.813rem;
+}
+
+.choices {
+    padding: 1.875rem 3.75rem;
+    display: flex;
+    justify-content: flex-end;
+    z-index: 5;
+}
+
+#signin {
+    all: unset;
+    cursor: pointer;
+    font-family: 'Lato';
+    font-size: 16px;
+    color: White;
+    background-color: var(--primary-color);
+    border-radius: 5px;
+    padding: 7px 15px;
+    transition-duration: 0.3s;
+    font-weight: 300;
+}
+
+#languageselect {
+    cursor: pointer;
+    font-family: 'Lato';
+    font-size: 16px;
+    color: White;
+    background-color: transparent;
+    border: 1px rgb(185, 185, 185) solid;
+    border-radius: 5px;
+    padding: 7px 10px;
+    margin-left: 40px;
+    margin-right: 40px;
+    font-weight: 300;
+}
+
+/*ADVERT*/
+.advert {
+    font-family: 'Lato';
+    color: White;
+    line-height: 50px;
+    padding: 120px 0px 0px 0px;
+    width: 50vw;
+
+    display: block;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.advert h1 {
+    font-size: 50px;
+}
+
+.advert p {
+    font-size: 25px;
+    padding: 15px;
+}
+
+/*SIGN UP*/
+.grid-container {
+    display: grid;
+    flex-wrap: wrap;
+    grid-template-rows: 50% 50%;
+}
+
+.signup p {
+    font-family: 'Lato';
+    color: White;
+    width: 100%;
+    text-align: center;
+    justify-self: center;
+    padding: 20px;
+    font-weight: 300;
+}
+
+.grid-item {
+    display: flex;
+    justify-content: center;
+}
+
+.email-form { /* container that holds the input and the label */
+    position: relative; 
+    width: 40vw;
+    height: 100%;
+    overflow: hidden;
+}
+
+.email-form input { /* actual input box where the user types */
+    font-family: 'Lato';
+    width: 100%;
+    height: 65%;
+    padding-top: 20px;
+    border: none;
+    outline: none;
+    padding-left: 10px;
+}
+
+.email-form label { /* manual placeholder that will move up */
+    font-family: 'Lato';
+    letter-spacing: 0;
+    font-size: 18px;
+    color: rgb(194, 194, 194);
+    position: absolute;
+    bottom: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%; /* makes it the same size as the container */
+    pointer-events: none;  /* prevents the label from covering the input */
+}
+
+.email-form label::after { /* inserts content into the label when selected */
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    bottom: 0%;
+    left: 0%;
+    border-bottom: 3px solid var(--primary-color);
+    transform: translateX(-100%); /* starts out way on the left */
+    transition: transform 0.3s ease;
+}
+
+.form-name { /* targets the written span inside the label */
+    position: absolute;
+    padding-left: 10px;
+    bottom: 35%;
+    transition: all 0.3s ease;
+}
+
+.email-form input:focus + .label-name .form-name, .email-form input:valid + .label-name .form-name {
+    transform: translateY(-90%);
+    font-size: 14px;
+    color:rgb(101, 101, 101);
+    /* when the input is clicked on or typed into, the written span will slide up and change sizes */
+}
+
+.email-form input:focus + .label-name::after, .email-form input:valid + .label-name::after {
+    transform: translateX(0%);
+    /* when the input is clicked on or typed into, the border added to the label will slide in */
+}
+
+#getstarted {
+    all: unset;
+    cursor: pointer;
+    color: white;
+    font-family: 'Lato';
+    font-size: 26px;
+    background-color: var(--primary-color);
+    padding: 15px 30px;
+    width: fit-content;
+    transition-duration: 0.3s;
+}
+
+#getstarted:hover, #signin:hover, .watch-free:hover {
+    background-color: var(--primary-hover-color);
+}
+
+
+
+
+/*CLICKABLE CONTENT TABS*/
+.tab-container {
+    width: 80vw;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    background-color: rgb(33, 33, 33);
+}
+
+.tab-item {
+    width: 500px;
+    color: grey;
+    font-family: 'Lato';
+    font-size: 16px;
+    padding: 25px;
+    text-align: center;
+    transition-duration: 0.3s;
+}
+
+.tab-item:hover {
+    color: white;
+    cursor: pointer;
+}
+
+i {
+    padding: 15px;
+}
+
+.tab-border {
+    border-bottom: 3px solid var(--primary-color);
+}
+
+#tab-1-content, #tab-2-content, #tab-3-content { /* hide all  initially, using id so it overrides grid displays */
+    display: none;
+}
+
+.show {
+    display: block !important
+}
+
+/*MULTIPLE TAB CONTENT*/
+.tab-content {
+    background-color: black;
+}
+
+.tab-content .subheading {
+    padding-bottom: 10px;
+    font-family: 'Arial';
+    font-size: 12px;
+    color: grey;
+}
+
+.watch-free {
+    all: unset;
+    cursor: pointer;
+    font-family: 'Lato';
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: White;
+    background-color: var(--primary-color);
+    border-radius: 5px;
+    padding: 10px 15px;
+    transition-duration: 0.3s;
+    font-weight: 300;
+    width: fit-content;
+    height: fit-content;
+    margin-left: 6%;
+}
+
+.tab-content h3, #choose-plan {
+    padding-bottom: 10px;
+    font-family: 'Lato';
+    font-size: 22px;
+    font-weight: 500;
+    color: white
+}
+
+.tab-content .heading {
+    padding-bottom: 10px;
+    font-family: 'Lato';
+    font-size: 16px;
+    font-weight: 700;
+    color: white
+}
+
+/*TAB 1 CONTENT*/
+.tab-1-content {
+    width: 80vw;
+    margin: auto;
+    padding-bottom: 3.75rem;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.tab-1-grid-item {
+    padding: 1.875rem;
+}
+
+.tab-1-content img {
+    width: 90%;
+}
+
+.tab-1-grid-item p {
+    padding: 17% 3% 5% 10%;
+    font-family: 'Lato';
+    font-size: 22px;
+    font-weight: 500;
+    color: white
+}
+
+#tab-1-watch-free {
+    margin: 0% 10%;
+}
+
+/*TAB 2 CONTENT*/
+.tab-2-content {
+    width: 80vw;
+    margin: auto;
+    display: grid;
+    grid-template-rows: repeat(2, auto);
+}
+
+.tab-2-grid-item-h {
+    width: 80vw;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 3rem 1.5rem 1.5rem 1.5rem;
+    box-sizing: border-box;
+}
+
+.tab-2-grid-item-h h3 {
+    padding-right: 0.938rem;
+}
+
+.tab-2-grid-item-f {
+    width: 80vw;
+    display: flex;
+    vertical-align: top;
+    padding-bottom: 4rem;
+}
+
+.tab-2-flex-item {
+    width: 33.33%;
+    text-align: center;
+    margin: 6px;
+}
+
+.tab-2-flex-item p {
+    padding: 0px 15px;
+}
+
+.tab-2-flex-item img {
+    max-height: 80%;
+    max-width: 80%;
+    padding-bottom: 0.75rem;
+}
+
+#tab-2-watch-free {
+    margin: 0;
+}
+
+/*TAB 3 CONTENT*/
+.tab-3-content {
+    width: 80vw;
+    margin: auto;
+    display: grid;
+    grid-template-rows: 1fr 6fr;
+    padding: 1.875rem 0rem;
+}
+
+.tab-3-grid-item {
+    padding: 1rem 0rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#choose-plan {
+    font-size: 18px;
+    padding: 5px;
+}
+
+#price-plan {
+    color: grey;
+    font-family: 'Arial';
+    font-size: 14px;
+    text-align: center;
+    border-spacing: 0;
+    width: 100%;
+}
+
+#price-plan tr {
+    height: 40px;
+    overflow: hidden;
+}
+
+#price-plan th {
+    color: white;
+    text-transform: uppercase;
+}
+
+#price-plan th, td {
+    padding: 0rem 1rem;
+}
+
+i {
+    font-size: 10px;
+}
+
+#price-plan tr:nth-child(odd) td {
+    background-color: rgb(38, 38, 38);
+}
+
+#price-plan tr:nth-child(even) td {
+    background-color: transparent;
+}
+
+#price-plan .label {
+    text-align: left;
+}
+
+
+
+
+
+/*FOR SMALLER SCREEN*/
+@media only screen and (max-height: 600px) {
+    .landing {
+        height: 100%;
+        padding-bottom: 80px;
+    }
+}
+
+@media only screen and (max-width: 784px) {
+    .landing {
+        height: 100%;
+        padding-bottom: 80px;
+    }
+    #signin, #languageselect {
+        font-size: 12px;
+    }
+    .advert {
+        padding: 80px 0px 0px 0px;
+    }
+    .advert h1 {
+        font-size: 30px;
+        line-height: 1.5;
+    }
+    .advert p {
+        font-size: 18px;
+        line-height: 1.5;
+    }
+    .signup p {
+        font-size: 13px;
+    }
+    .grid-item {
+        flex-direction: column;
+        align-items: center;
+    }
+    #getstarted {
+        font-size: 13px;
+        padding: 10px 15px;
+        height: fit-content;
+    }
+    #email-address {
+        font-size: 13px;
+        height: fit-content;
+    }
+    .tab {
+        font-size: 13px;
+    }
+    .hide-sm {
+        display: none;
+    }
+
+    .tab-1-content {
+        display: flex;
+        flex-direction: column;
+    }
+    .tab-2-grid-item-h {
+        margin: 0;
+        padding: 3rem 0;
+    }
+    .watch-free {
+        margin: 0;
+    }
+    .tab-2-grid-item-f, .tab-2-grid-item-h {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .tab-2-flex-item {
+        width: 100%;
+        padding-bottom: 1.875rem;
+    }
+    .label {
+        font-size: 10px;
+    }
+}
