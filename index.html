@@ -2,7 +2,7 @@
 
 <html>
 
-<link href="landingpage.css" rel="stylesheet">
+<link href="style.css" rel="stylesheet">
 
 <head>
     <title>Netflix Canada - Watch TV Shows Online, Watch Movies Online</title>
@@ -34,17 +34,21 @@
         </section>
     
         <section class="signup grid-container">
-            <p class="grid-item">Ready to watch? Enter your email to create or restart your membership.</p>
+            <p class="grid-item" id="ready-to-watch">Ready to watch? Enter your email to create or restart your membership.</p>
             <div class="grid-item">
                 <div class="email-form">
+                    <form name="email-form" id="email-form" action="/get-started-page.php" method="POST">
                     <input type="text" id="email-address" autocomplete="off" required>
                     <label class="label-name">
-                        <span class="form-name">Email address</span> <!--not writing in label directly so we can animate separately-->
+                    <span class="form-name">Email address</span> <!--not writing in label directly so we can animate separately-->
                     </label>
                 </div>
-                <button id="getstarted">Get Started</button>
+                <!-- <button id="getstarted">Get Started</button> -->
+                <input type="submit" id="getstarted" value="Get Started">
+                </form>
             </div>
         </section>
+        <div id="error-message" class="grid-item"></div>
     </section>
 
     <section class="tabs">
@@ -171,7 +175,29 @@
         </div>
     </section>
 
-    <script src="landingpage.js"></script>
+    <section class="FAQ">
+        <div class="FAQ-container">
+            <h3>Frequently Asked Questions</h3>
+            <button type="button" class="collapsible" id="collapsible-1">What is Netflix?</button>
+            <div class="collapsible-content inactive-content" id="collapsible-1-content">
+                <p>Netflix is a streaming service that offers a wide variety of award-winning TV shows, movies, anime, documentaries, and more on thousands of internet-connected devices.<br><br>You can watch as much as you want, whenever you want without a single commercial – all for one low monthly price. There's always something new to discover and new TV shows and movies are added every week!</p>
+            </div>
+            <button type="button" class="collapsible" id="collapsible-2">What can I watch on Netflix?</button>
+            <div class="collapsible-content inactive-content" id="collapsible-2-content">
+                <p>Netflix has an extensive library of feature films, documentaries, TV shows, anime, award-winning Netflix originals, and more. Watch as much as you want, anytime you want.</p>
+            </div>
+            <button type="button" class="collapsible" id="collapsible-3">Is Netflix good for kids?</button>
+            <div class="collapsible-content inactive-content" id="collapsible-3-content">
+                <p>The Netflix Kids experience is included in your membership to give parents control while kids enjoy family-friendly TV shows and movies in their own space.<br><br>Kids profiles come with PIN-protected parental controls that let you restrict the maturity rating of content kids can watch and block specific titles you don’t want kids to see.</p>
+            </div>
+            <button type="button" class="collapsible" id="collapsible-4">How do I cancel?</button>
+            <div class="collapsible-content inactive-content" id="collapsible-4-content">
+                <p>Netflix is flexible. There are no pesky contracts and no commitments. You can easily cancel your account online in two clicks. There are no cancellation fees – start or stop your account anytime.</p>
+            </div>
+        </div>
+    </section>
+
+    <script src="main.js"></script>
 </body>
 
 </html>

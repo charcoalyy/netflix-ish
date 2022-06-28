@@ -102,6 +102,9 @@ body {
 }
 
 .grid-item {
+    width: 58vw;
+    margin-right: auto;
+    margin-left: auto;
     display: flex;
     justify-content: center;
 }
@@ -183,6 +186,17 @@ body {
     background-color: var(--primary-hover-color);
 }
 
+form {
+    all: unset;
+}
+
+#error-message {
+    justify-content: flex-start;
+    font-family: 'Arial';
+    padding: 0.5rem;
+    font-size: 14px;
+    color: var(--primary-color);
+}
 
 
 
@@ -227,6 +241,10 @@ i {
 }
 
 /*MULTIPLE TAB CONTENT*/
+a {
+    all: unset;
+}
+
 .tab-content {
     background-color: black;
 }
@@ -411,6 +429,77 @@ i {
     text-align: left;
 }
 
+/* FAQ COLLAPSIBLES */
+.FAQ {
+    background-color: black;
+    border-top: 5px solid rgb(26, 26, 26);
+    padding-bottom: 5rem;
+}
+
+.FAQ-container {
+    width: 70vw;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.FAQ-container h3 {
+    padding: 2.5rem;
+    color: white;
+    font-family: 'Arial';
+    font-size: 40px;
+    text-align: center;
+}
+
+.collapsible {
+    all: unset;
+    cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
+    background-color:rgb(55, 55, 55);
+    padding: 1.5rem;
+    font-size: 22px;
+    color: white;
+    font-family: 'Lato';
+    margin-bottom: 0.2rem;
+    transition: background-color 0.3s;
+}
+
+.collapsible-content {
+    width: 100%;
+    box-sizing: border-box;
+    background-color:rgb(55, 55, 55);
+    padding: 1.5rem;
+    font-size: 22px;
+    color: white;
+    font-family: 'Lato';
+    line-height: 1.15;
+    margin-bottom: 0.2rem;
+    /* for animation */
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.1s ease-out;
+}
+
+.active-collapsible, .collapsible:hover {
+    background-color:rgb(32, 32, 32);
+}
+
+.inactive-content {
+    display: none;
+}
+
+.collapsible::after { /* recall "after" is to add content; add + here instead of in html so it can be changed */
+    content: "+";
+    color: white;
+    float: right;
+    margin-left: 1.5rem;
+}
+
+.active-collapsible::after { /* when activated, - takes over and keeps original style unless specified otherwise */
+    content: "–";
+}
 
 
 
