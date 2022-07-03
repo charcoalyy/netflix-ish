@@ -15,7 +15,7 @@
 <body>
 
     <section class="landing">
-        <header class="showcase">
+        <header>
             <figure class="logo">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Logonetflix.png" id="logo">
             </figure>
@@ -40,40 +40,82 @@
                     <form name="email-form" id="email-form" action="/get-started-page.php" method="POST">
                     <input type="text" id="email-address" autocomplete="off" required>
                     <label class="label-name">
-                    <span class="form-name">Email address</span> <!--not writing in label directly so we can animate separately-->
+                    <span class="form-name">Email address</span> <!-- not writing in label directly so we can animate separately -->
                     </label>
                 </div>
-                <!-- <button id="getstarted">Get Started</button> -->
-                <input type="submit" id="getstarted" value="Get Started">
-                </form>
+                <input type="submit" id="get-started" value="Get Started" data-modal-target="#modal-step-1">
+                    </form>
             </div>
         </section>
         <div id="error-message" class="grid-item"></div>
+
+        <div class="modal" id="get-started-modal">
+            <div class="modal-step" id="modal-step-1">
+                <header class="modal-header">
+                    <h6>STEP 1 OF 3</h6>
+                    <button data-close-modal class="close-modal">&times;</button>
+                    <h1>Create a password to start your membership</h1>
+                </header>
+                <input type="text" id="user-email" autocomplete="off" value="johnsmith@gmail.com" required> <!--*****need to retrieve email****-->
+                <input type="password" id="user-password" autocomplete="off" placeholder="Add a password" required>
+                <button class="next">Next</button>
+            </div>
+            <div class="modal-step" id="modal-step-2">
+                <header class="modal-header">
+                    <h6>STEP 2 OF 3</h6>
+                    <button data-close-modal class="close-modal">&times;</button>
+                    <h1>Choose the plan that's right for you</h1>
+                </header>
+                <input type="radio" id="user-plan-b" value="Basic">
+                <label for="user-plan-b">Basic</label>
+                <input type="radio" id="user-plan-s" value="Standard">
+                <label for="user-plan-s">Standard</label>
+                <input type="radio" id="user-plan-p" value="Premium">
+                <label for="user-plan-p">Premium</label>
+                <button class="next">Next</button>
+            </div>
+            <div class="modal-step" id="modal-step-3">
+                <header class="modal-header">
+                    <h6>STEP 3 OF 3</h6>
+                    <button data-close-modal class="close-modal">&times;</button>
+                    <h1>Set up your payment method</h1>
+                </header>
+                <p>Hehe just kidding, not trying to take your credit card info here :P</p>
+                <button class="next">Next</button>
+            </div>
+            <div class="modal-step hidden-modal" id="modal-done">
+                <h1>Yay!</h1>
+                <p>You've signed up for Netflix. Check your email for the confirmation link. Happy watching!</p>
+            </div>
+        </div>
+        <div id="overlay"></div>
+
     </section>
 
-    <section class="tabs">
-        <div class="tab-container">
-            <div id="tab-1" class="tab-item tab-border">
-                <i class="fa-solid fa-door-open fa-3x"></i>
-                <p class="tab hide-sm" id="commit">Cancel online at any time</p>
-            </div>
-            <div id="tab-2" class="tab-item">
-                <i class="fa-solid fa-tv fa-3x"></i>
-                <p class="tab hide-sm" id="watch">Watch anywhere</p>
-            </div>
-            <div id="tab-3" class="tab-item">
-                <i class="fa-solid fa-tag fa-3x"></i>
-                <p class="tab hide-sm" id="pick">Pick your price</p>
-            </div>
+
+
+    <section class="tab-container">
+        <div id="tab-1" class="tab-item tab-border">
+            <i class="fa-solid fa-door-open fa-3x"></i>
+            <p class="tab hide-sm" id="commit">Cancel online at any time</p>
+        </div>
+        <div id="tab-2" class="tab-item">
+            <i class="fa-solid fa-tv fa-3x"></i>
+            <p class="tab hide-sm" id="watch">Watch anywhere</p>
+        </div>
+        <div id="tab-3" class="tab-item">
+            <i class="fa-solid fa-tag fa-3x"></i>
+            <p class="tab hide-sm" id="pick">Pick your price</p>
         </div>
     </section>
 
+
     <section class="tab-content">
-        <div class="OUTER-BLOCK-BOX show" id="tab-1-content"> <!--using outer block box because the only way to none display is to set it to block-->
+        <div class="OUTER-BLOCK-BOX show" id="tab-1-content"> <!-- using extra outer block boxes because the only way to none display is to set it to block -->
             <div class="tab-1-content tab-content-item">
                 <div class="tab-1-grid-item">
                     <p>If you decide Netflix isn't for you - no problem.<br>No commitment. Cancel online anytime.</p>
-                    <button class="watch-free" id="tab-1-watch-free">Watch free for 30 days</button>
+                    <a href="#email-address" class="watch-free" id="tab-1-watch-free">Watch free for 30 days</a>
                 </div>
                 <div class="tab-1-grid-item">
                     <img src="https://raw.githubusercontent.com/cdara/movie-box/gh-pages/_images/cancel-display.png">
@@ -85,7 +127,7 @@
             <div class="tab-2-content tab-content-item">
                 <div class="tab-2-grid-item-h">
                     <h3 id="watch-anywhere">Watch TV shows and movies anytime, anywhere - personalized for you.</h3>
-                    <button class="watch-free" id="tab-2-watch-free">Watch free for 30 days</button>
+                    <a href="#email-address" class="watch-free" id="tab-2-watch-free">Watch free for 30 days</a>
                 </div>
                 <div class="tab-2-grid-item-f">
                     <div class="tab-2-flex-item l">
@@ -111,7 +153,7 @@
             <div class="tab-3-content tab-content-item">
                 <div class="tab-3-grid-item">
                     <p id="choose-plan">Choose one plan and watch everything on Netflix.</p>
-                    <button class="watch-free">Watch free for 30 days</button>
+                    <a href="#email-address" class="watch-free">Watch free for 30 days</a>
                 </div>
                 <div class="tab-3-grid-item">
                     <table id="price-plan">

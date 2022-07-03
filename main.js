@@ -59,7 +59,6 @@ function openItem(ev) {
         collapsibleContentSelected.classList.remove('inactive-content');
         collapsibleContentSelected.style.maxHeight = collapsibleContentSelected.scrollHeight + "px";
     }
-    // **PROBLEM: HOW TO ANIMATE THE SCROLL BACK UPPPPPPP and sometimes it doesn't work...
 }
 
 // Listen for button click and apply the above function
@@ -88,3 +87,43 @@ form.addEventListener('submit', (e) => {
         error.innerText = messages
     }
 });
+
+
+
+// Get started modal
+
+// ****PROBLEM: GET STARTED SHOULD RESPOND ONLY !!!! IF IT'S VALID ??!!?!?!?!?!
+// ****ALSO: NEED TO GET THE "NEXT" BUTTON WORKING!!!!!!
+
+const closeModals = document.querySelectorAll('[data-close-modal]') // assigns all close buttons to var closeModals
+const getStartedButton = document.getElementById('get-started') // assigns get started button to var getStartedButton
+const overlay = document.getElementById('overlay') // assigns overlay div to var overlay
+
+let openModal = (modWindow) => { // adds the active class to the selected modal window
+    modWindow.classList.add('active');
+    overlay.classList.add('active');
+}
+
+let closeModal = (modal) => { // removes the active class from the selected modal window
+    modal.classList.remove('active');
+    overlay.classList.remove('active');
+}
+
+getStartedButton.addEventListener('click', () => {
+    const modWindow = document.querySelector(getStartedButton.dataset.modalTarget) // dataset allows us to access the data attributes (eg. the value of the modal target) of getStartedButton as if getStartedButtonw as an object -- thus assigns the VALUE of getStartedButton's modal target (modal step 1) to var modal window
+    openModal(modWindow) // and opens the modal window
+})
+
+closeModals.forEach(button => { // for each element that contains the close modal data attribute, treat it like a button
+    button.addEventListener('click', () => { // when clicked,
+        const modWindow = button.closest('.modal-step') // closest allows us to access the closest PARENT element with the class modal-step (doing this bc our close button is inside of the modal window we want to close) -- thus assigns the button's parent modal to var modal window
+        closeModal(modWindow) // and closes the modal window
+    })
+})
+
+overlay.addEventListener('click', () => {
+    const modals = document.querySelectorAll('.modal-step.active') // selects the currently open modals
+    modals.forEach((modWindow) => { // and closes them each
+        closeModal(modWindow);
+    })
+})

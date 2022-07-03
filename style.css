@@ -3,6 +3,10 @@
     padding: 0;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     background-color:rgb(33, 33, 33);
     --primary-color: #E50914;
@@ -17,7 +21,8 @@ body {
     letter-spacing: 0.044rem;
 }
 
-/*HEADER*/
+
+/* HEADER */
 .logo {
     position: absolute;
     margin: 1.875rem 3.75rem;
@@ -61,7 +66,8 @@ body {
     font-weight: 300;
 }
 
-/*ADVERT*/
+
+/* ADVERT WHITE TEXT */
 .advert {
     font-family: 'Lato';
     color: White;
@@ -84,11 +90,20 @@ body {
     padding: 15px;
 }
 
-/*SIGN UP*/
+
+/* SIGN UP AND GET STARTED */
 .grid-container {
     display: grid;
     flex-wrap: wrap;
     grid-template-rows: 50% 50%;
+}
+
+.grid-item {
+    width: 58vw;
+    margin-right: auto;
+    margin-left: auto;
+    display: flex;
+    justify-content: center;
 }
 
 .signup p {
@@ -101,32 +116,23 @@ body {
     font-weight: 300;
 }
 
-.grid-item {
-    width: 58vw;
-    margin-right: auto;
-    margin-left: auto;
-    display: flex;
-    justify-content: center;
-}
-
-.email-form { /* container that holds the input and the label */
+.email-form { /* abstract container that holds the user input AND the text label */
     position: relative; 
-    width: 40vw;
+    width: 80%;
     height: 100%;
     overflow: hidden;
 }
 
-.email-form input { /* actual input box where the user types */
+.email-form input { /* actual white input box where the user types */
     font-family: 'Lato';
     width: 100%;
     height: 65%;
     padding-top: 20px;
-    border: none;
     outline: none;
     padding-left: 10px;
 }
 
-.email-form label { /* manual placeholder that will move up */
+.email-form label { /* box containing the manual text label (placeholder) that will move up */
     font-family: 'Lato';
     letter-spacing: 0;
     font-size: 18px;
@@ -135,11 +141,11 @@ body {
     bottom: 0%;
     left: 0%;
     width: 100%;
-    height: 100%; /* makes it the same size as the container */
+    height: 100%; /* makes it the same size as the abstract container */
     pointer-events: none;  /* prevents the label from covering the input */
 }
 
-.email-form label::after { /* inserts content into the label when selected */
+.email-form label::after { /* inserts content into the label when selected, a border in this case */
     content: "";
     position: absolute;
     width: 100%;
@@ -147,42 +153,43 @@ body {
     bottom: 0%;
     left: 0%;
     border-bottom: 3px solid var(--primary-color);
-    transform: translateX(-100%); /* starts out way on the left */
+    transform: translateX(-100%); /* the new content starts out way on the left */
     transition: transform 0.3s ease;
 }
 
-.form-name { /* targets the written span inside the label */
+.form-name { /* targets the written span inside the label box */
     position: absolute;
     padding-left: 10px;
-    bottom: 35%;
+    bottom: 33%;
     transition: all 0.3s ease;
 }
 
 .email-form input:focus + .label-name .form-name, .email-form input:valid + .label-name .form-name {
+    /* when the input is clicked on or typed into, the written span will slide up and shrink */
     transform: translateY(-90%);
     font-size: 14px;
     color:rgb(101, 101, 101);
-    /* when the input is clicked on or typed into, the written span will slide up and change sizes */
 }
 
 .email-form input:focus + .label-name::after, .email-form input:valid + .label-name::after {
+    /* when the input is clicked on or typed into, the content (border) added to the label will slide in */
     transform: translateX(0%);
-    /* when the input is clicked on or typed into, the border added to the label will slide in */
 }
 
-#getstarted {
+#get-started {
     all: unset;
     cursor: pointer;
+    text-align: center;
     color: white;
     font-family: 'Lato';
-    font-size: 26px;
+    font-size: 22px;
     background-color: var(--primary-color);
     padding: 15px 30px;
-    width: fit-content;
+    width: 25%;
     transition-duration: 0.3s;
 }
 
-#getstarted:hover, #signin:hover, .watch-free:hover {
+#get-started:hover, #signin:hover, .watch-free:hover {
     background-color: var(--primary-hover-color);
 }
 
@@ -193,14 +200,113 @@ form {
 #error-message {
     justify-content: flex-start;
     font-family: 'Arial';
-    padding: 0.5rem;
+    padding: 0.75rem;
     font-size: 14px;
     color: var(--primary-color);
 }
 
+/* MODAL */
+.modal-step {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 0.3s ease-in-out;
+    width: 50vw;
+    height: clamp(fit-content, 60vh, 100%);
+    padding: 0.875rem;
+
+    background-color: white;
+    font-family: 'Lato';
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    z-index: 10;
+}
+
+.modal-step.active {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.close-modal {
+    all: unset;
+    cursor: pointer;
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.modal-header {
+    margin-top: 1rem;
+    width: 70%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.modal-step h1 {
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.modal-step h6 {
+    color:rgb(163, 163, 163);
+    font-weight: 300;
+}
+
+.modal-step input[type=text], .modal-step input[type=password] {
+    font-family: 'Lato';
+    width: 25vw;
+    margin: 0.1rem 0rem;
+    padding: 0.5rem;
+}
+
+#overlay {
+    position: fixed;
+    opacity: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    pointer-events: none;
+    transition: 0.3s ease-in-out;
+}
+
+#overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.next {
+    all: unset;
+    cursor: pointer;
+    text-align: center;
+    color: white;
+    font-family: 'Lato';
+    background-color: var(--primary-color);
+    padding: 15px 15px;
+    width: 25%;
+    transition-duration: 0.3s;
+    margin: 1rem 0rem;
+}
+
+.next:hover {
+    background-color: var(--primary-hover-color);
+}
+
+.hidden-modal {
+    display: none;
+}
 
 
-/*CLICKABLE CONTENT TABS*/
+
+
+/* CLICKABLE CONTENT TAB BUTTONS */
 .tab-container {
     width: 80vw;
     margin: auto;
@@ -232,7 +338,7 @@ i {
     border-bottom: 3px solid var(--primary-color);
 }
 
-#tab-1-content, #tab-2-content, #tab-3-content { /* hide all  initially, using id so it overrides grid displays */
+#tab-1-content, #tab-2-content, #tab-3-content { /* hide all initially, using id so it overrides grid displays */
     display: none;
 }
 
@@ -240,7 +346,8 @@ i {
     display: block !important
 }
 
-/*MULTIPLE TAB CONTENT*/
+
+/* CONTENT THAT BELONGS IN MULTIPLE TABS */
 a {
     all: unset;
 }
@@ -290,7 +397,8 @@ a {
     color: white
 }
 
-/*TAB 1 CONTENT*/
+
+/* TAB 1 CONTENT */
 .tab-1-content {
     width: 80vw;
     margin: auto;
@@ -319,7 +427,8 @@ a {
     margin: 0% 10%;
 }
 
-/*TAB 2 CONTENT*/
+
+/* TAB 2 CONTENT */
 .tab-2-content {
     width: 80vw;
     margin: auto;
@@ -367,7 +476,8 @@ a {
     margin: 0;
 }
 
-/*TAB 3 CONTENT*/
+
+/* TAB 3 CONTENT */
 .tab-3-content {
     width: 80vw;
     margin: auto;
@@ -428,6 +538,8 @@ i {
 #price-plan .label {
     text-align: left;
 }
+
+
 
 /* FAQ COLLAPSIBLES */
 .FAQ {
@@ -490,7 +602,7 @@ i {
     display: none;
 }
 
-.collapsible::after { /* recall "after" is to add content; add + here instead of in html so it can be changed */
+.collapsible::after { /* add + sign here instead of in html, so that it can be changed */
     content: "+";
     color: white;
     float: right;
@@ -503,12 +615,40 @@ i {
 
 
 
-
-/*FOR SMALLER SCREEN*/
+/* FOR SMALLER SCREEN */
 @media only screen and (max-height: 600px) {
     .landing {
         height: 100%;
         padding-bottom: 80px;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .advert {
+        padding: 80px 0px 0px 0px;
+    }
+    .landing {
+        padding-bottom: 60px;
+    }
+    #get-started {
+        font-size: 16px;
+    }
+
+    .email-form input {
+        padding-top: 7px;
+        padding-left: 10px;
+        font-size: 16px;
+        height: 90%;
+    }
+    .email-form label {
+        font-size: 16px;
+    }
+    .email-form label::after {
+        border: none;
+    }
+    .email-form input:focus + .label-name .form-name, .email-form input:valid + .label-name .form-name {
+        font-size: 12px;
+        padding-left: 10px;
     }
 }
 
@@ -520,6 +660,10 @@ i {
     #signin, #languageselect {
         font-size: 12px;
     }
+    #languageselect {
+        margin: 0px 20px;
+    }
+
     .advert {
         padding: 80px 0px 0px 0px;
     }
@@ -534,11 +678,12 @@ i {
     .signup p {
         font-size: 13px;
     }
+
     .grid-item {
         flex-direction: column;
         align-items: center;
     }
-    #getstarted {
+    #get-started {
         font-size: 13px;
         padding: 10px 15px;
         height: fit-content;
@@ -576,5 +721,37 @@ i {
     }
     .label {
         font-size: 10px;
+    }
+
+    #get-started {
+        font-size: 16px;
+        width: fit-content;
+    }
+    .email-form {
+        overflow: visible;
+    }
+    .email-form input {
+        padding: 10px 0px 10px 10px;
+        font-size: 19px;
+        height: 100%;
+        transition: all 0.3s;
+    }
+    .email-form label {
+        font-size: 14px;
+        padding: 0px;
+        top: 5%;
+        left: 0%;
+    }
+    .email-form label::after {
+        border: none;
+    }
+    .email-form input:focus + .label-name .form-name, .email-form input:valid + .label-name .form-name {
+        transform: none;
+        font-size: 14px;
+        color: white;
+        z-index: -1;
+    }
+    .collapsible, .collapsible-content {
+        font-size: 18px;
     }
 }
