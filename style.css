@@ -205,6 +205,8 @@ form {
     color: var(--primary-color);
 }
 
+
+
 /* MODAL */
 .modal-step {
     position: fixed;
@@ -238,7 +240,13 @@ form {
     font-weight: 700;
 }
 
-.modal-header {
+#modal-error-I, #modal-error-II {
+    padding-top: 0.3rem;
+    font-size: 10px;
+    color: var(--primary-color);
+}
+
+.modal header {
     margin-top: 1rem;
     width: 70%;
     display: flex;
@@ -246,6 +254,15 @@ form {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+}
+
+#modal-step-IIII p {
+    padding-bottom: 2.5rem;
+}
+
+#modal-step-IIII h1 {
+    margin-top: 0rem;
+    margin-bottom: 1rem;
 }
 
 .modal-step h1 {
@@ -282,7 +299,7 @@ form {
     pointer-events: all;
 }
 
-.next {
+.next, .submit-user-info {
     all: unset;
     cursor: pointer;
     text-align: center;
@@ -295,7 +312,7 @@ form {
     margin: 1rem 0rem;
 }
 
-.next:hover {
+.next:hover, .submit-user-info:hover {
     background-color: var(--primary-hover-color);
 }
 

@@ -13,7 +13,6 @@
 </head>
 
 <body>
-
     <section class="landing">
         <header>
             <figure class="logo">
@@ -37,55 +36,68 @@
             <p class="grid-item" id="ready-to-watch">Ready to watch? Enter your email to create or restart your membership.</p>
             <div class="grid-item">
                 <div class="email-form">
-                    <form name="email-form" id="email-form" action="/get-started-page.php" method="POST">
-                    <input type="text" id="email-address" autocomplete="off" required>
+                    <form name="email-form" id="email-form">
+                    <input type="text" id="email-address" autocomplete="off">
                     <label class="label-name">
                     <span class="form-name">Email address</span> <!-- not writing in label directly so we can animate separately -->
                     </label>
                 </div>
-                <input type="submit" id="get-started" value="Get Started" data-modal-target="#modal-step-1">
+                <input type="submit" id="get-started" value="Get Started" data-modal-target="#modal-step-I">
                     </form>
             </div>
         </section>
         <div id="error-message" class="grid-item"></div>
 
         <div class="modal" id="get-started-modal">
-            <div class="modal-step" id="modal-step-1">
-                <header class="modal-header">
+            <div class="modal-step" id="modal-step-I">
+                <header>
                     <h6>STEP 1 OF 3</h6>
                     <button data-close-modal class="close-modal">&times;</button>
                     <h1>Create a password to start your membership</h1>
                 </header>
-                <input type="text" id="user-email" autocomplete="off" value="johnsmith@gmail.com" required> <!--*****need to retrieve email****-->
-                <input type="password" id="user-password" autocomplete="off" placeholder="Add a password" required>
+                <input class="modal-input" type="text" id="user-email" autocomplete="off" placeholder="Add your email">
+                <input class="modal-input" type="password" id="user-password" autocomplete="off" placeholder="Add a password">
+                <p id="modal-error-I"></p>
                 <button class="next">Next</button>
             </div>
-            <div class="modal-step" id="modal-step-2">
-                <header class="modal-header">
+
+            <div class="modal-step" id="modal-step-II">
+                <header>
                     <h6>STEP 2 OF 3</h6>
                     <button data-close-modal class="close-modal">&times;</button>
                     <h1>Choose the plan that's right for you</h1>
                 </header>
-                <input type="radio" id="user-plan-b" value="Basic">
-                <label for="user-plan-b">Basic</label>
-                <input type="radio" id="user-plan-s" value="Standard">
-                <label for="user-plan-s">Standard</label>
-                <input type="radio" id="user-plan-p" value="Premium">
-                <label for="user-plan-p">Premium</label>
+                <div class="plan-radio">
+                    <input class="modal-input" type="radio" id="user-plan-b" value="Basic" name="plan">
+                    <label for="user-plan-b">Basic</label><br>
+                    <input class="modal-input" type="radio" id="user-plan-s" value="Standard" name="plan">
+                    <label for="user-plan-s">Standard</label><br>
+                    <input class="modal-input" type="radio" id="user-plan-p" value="Premium" name="plan">
+                    <label for="user-plan-p">Premium</label><br>
+                </div>
+                <p id="modal-error-II"></p>
                 <button class="next">Next</button>
             </div>
-            <div class="modal-step" id="modal-step-3">
-                <header class="modal-header">
+            <div class="modal-step" id="modal-step-III">
+                <header>
                     <h6>STEP 3 OF 3</h6>
                     <button data-close-modal class="close-modal">&times;</button>
                     <h1>Set up your payment method</h1>
+                    <p>Hehe just kidding, not trying to take your credit card info here (◑‿◐)</p>
                 </header>
-                <p>Hehe just kidding, not trying to take your credit card info here :P</p>
-                <button class="next">Next</button>
+                <button class="submit-user-info next">SUBMIT</button>
             </div>
-            <div class="modal-step hidden-modal" id="modal-done">
-                <h1>Yay!</h1>
-                <p>You've signed up for Netflix. Check your email for the confirmation link. Happy watching!</p>
+
+            <div class="modal-step" id="modal-step-IIII">
+                <header>
+                    <h6>ALL STEPS COMPLETED</h6>
+                    <button data-close-modal class="close-modal"><a href="/other.html">&times;</a></button>
+                </header>
+                <header>
+                    <h1>Yay!</h1>
+                    <p>You've successfully signed up for Netflix. Check your inbox for the <strong>confirmation link</strong> that lets us verify your email. Happy watching!</p>
+                </header>
+    
             </div>
         </div>
         <div id="overlay"></div>

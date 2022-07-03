@@ -71,59 +71,140 @@ const form = document.getElementById('email-form');
 const email = document.getElementById('email-address');
 const error = document.getElementById('error-message');
 
+var validatedEmail;
+
 form.addEventListener('submit', (e) => {
+    e.preventDefault();
+})
+
+let validateInitialEmail = (e) => {
     let messages = [];
     var patt = new RegExp("@");
 
-    if (email.value === " " || email.value === null) {
+    if (email.value === "" || email.value === null) { // if field is empty
         messages.push("Email is required")
-    } else if (patt.test(email.value)) {
+    } else if (patt.test(email.value)) { // if field contains @ sign
+        validatedEmail = email.value; // add email into var validatedEmail for later use
         return 'valid'
-    } else {
+    } else { // if field lacks @ sign
         messages.push("Please enter a valid email address")
     }
     if (messages.length > 0) {
-        e.preventDefault()
-        error.innerText = messages
+        error.innerText = messages // add all relevant error messages to the error html element
+        e.preventDefault() 
     }
-});
+}
 
 
 
-// Get started modal
+// Modal opening and closing
+const closeModals = document.querySelectorAll('[data-close-modal]') // assign all close buttons to var closeModals
+const getStartedButton = document.getElementById('get-started') // assign get started button to var getStartedButton
+const overlay = document.getElementById('overlay') // assign overlay div to var overlay
 
-// ****PROBLEM: GET STARTED SHOULD RESPOND ONLY !!!! IF IT'S VALID ??!!?!?!?!?!
-// ****ALSO: NEED TO GET THE "NEXT" BUTTON WORKING!!!!!!
-
-const closeModals = document.querySelectorAll('[data-close-modal]') // assigns all close buttons to var closeModals
-const getStartedButton = document.getElementById('get-started') // assigns get started button to var getStartedButton
-const overlay = document.getElementById('overlay') // assigns overlay div to var overlay
-
-let openModal = (modWindow) => { // adds the active class to the selected modal window
+let openModal = (modWindow) => { // add the active class to the selected modal window
     modWindow.classList.add('active');
     overlay.classList.add('active');
 }
 
-let closeModal = (modal) => { // removes the active class from the selected modal window
+let closeModal = (modal) => { // remove the active class from the selected modal window
     modal.classList.remove('active');
     overlay.classList.remove('active');
 }
 
 getStartedButton.addEventListener('click', () => {
-    const modWindow = document.querySelector(getStartedButton.dataset.modalTarget) // dataset allows us to access the data attributes (eg. the value of the modal target) of getStartedButton as if getStartedButtonw as an object -- thus assigns the VALUE of getStartedButton's modal target (modal step 1) to var modal window
-    openModal(modWindow) // and opens the modal window
+    validateInitialEmail(); // check that email was entered on landing page
+    document.getElementById("user-email").value = validatedEmail; // if so, add that email into modal email box
+    const modWindow = document.querySelector(getStartedButton.dataset.modalTarget) // dataset lets us access the data attributes (eg. the value of the modal target) of getStartedButton as if getStartedButtonw is an object -- thus assign the VALUE of getStartedButton's modal target (modal-step-1) to var modal window
+    openModal(modWindow) // open the modal window
 })
 
 closeModals.forEach(button => { // for each element that contains the close modal data attribute, treat it like a button
     button.addEventListener('click', () => { // when clicked,
-        const modWindow = button.closest('.modal-step') // closest allows us to access the closest PARENT element with the class modal-step (doing this bc our close button is inside of the modal window we want to close) -- thus assigns the button's parent modal to var modal window
-        closeModal(modWindow) // and closes the modal window
+        const modWindow = button.closest('.modal-step') // closest lets us access the closest PARENT element with the class modal-step (doing this bc our close button is inside (a child) of the modal window we want to close) -- thus assign the button's parent modal to var modal window
+        closeModal(modWindow) // close the modal window
     })
 })
 
 overlay.addEventListener('click', () => {
-    const modals = document.querySelectorAll('.modal-step.active') // selects the currently open modals
-    modals.forEach((modWindow) => { // and closes them each
+    const currentModal = document.querySelector('.active.modal-step')
+    if (currentModal.id === "modal-step-IIII") {
+        window.location.href = "./other.html"
+    }
+
+    const modals = document.querySelectorAll('.modal-step.active') // select the currently open modals
+    modals.forEach((modWindow) => { // close them each
         closeModal(modWindow);
     })
+})
+
+
+// Modal advancing
+const nextButton = document.querySelectorAll('.next')
+
+nextButton.forEach(button => {
+    button.addEventListener('click', () => {
+        const currentModal = document.querySelector('.active.modal-step') // select currently active modal
+        const currentInputs = currentModal.querySelectorAll('.modal-input') // list all inputs inside current modal
+    
+        if (currentInputs.length > 0) { // if there are inputs, validate them
+            if (currentInputs[0].type === "text" ) {
+                if (currentInputs[0].value != "" && currentInputs[1].value != "") { // if email and password are both filled in
+                    goToNext();
+                } else {
+                    document.getElementById('modal-error-I').innerText = "Please fill in all fields to proceed."
+                }
+            } else if (currentInputs[0].type === "radio") {
+                if (currentInputs[0].checked === true || currentInputs[1].checked === true || currentInputs[2].checked === true) { // if any radio is selected
+                    goToNext();
+                } else {
+                    document.getElementById('modal-error-II').innerText = "Please select a plan to proceed."
+                }
+            }
+        } else {
+            goToNext();
+        }
+    })
+})
+
+let goToNext = () => {
+    const currentModal = document.querySelector('.active.modal-step') // select currently active modal
+    const nextModal = document.getElementById(`${currentModal.id}I`) // find ID of modal just after current one
+    closeModal(currentModal)
+    openModal(nextModal)
+}
+
+
+
+// Modal submission
+const submitUserButton = document.querySelector('.submit-user-info')
+var users = [];
+
+submitUserButton.addEventListener('click', () => {
+    var userEmail = document.getElementById('user-email') // find input field for email
+    var userPassword = document.getElementById('user-password') // find input field for password
+    var userPlan; // establish empty variable for price plan
+
+    if (document.getElementById('user-plan-b').checked) {
+        userPlan = document.getElementById('user-plan-b').value; // find value of radio button clicked
+    } else if (document.getElementById('user-plan-s').checked) {
+        userPlan = document.getElementById('user-plan-s').value;
+    } else if (document.getElementById('user-plan-p').checked) {
+        userPlan = document.getElementById('user-plan-p').value;
+    }
+
+    const newUser = { // create object with user info
+        email: userEmail.value,
+        password: userPassword.value,
+        plan: userPlan
+    }
+    users.push(newUser) // add to list of users
+
+    const userData = JSON.stringify(users)
+    localStorage.setItem("user data", userData) // store for later access
+
+    // clear all fields
+    userEmail.value = ''
+    userPassword.value = ''
+    document.querySelector('input[name="plan"]:checked').checked = false;
 })
