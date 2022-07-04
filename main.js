@@ -67,15 +67,8 @@ collapsibleButtons.forEach(item => item.addEventListener('click', openItem));
 
 
 // Email form validation
-const form = document.getElementById('email-form');
 const email = document.getElementById('email-address');
 const error = document.getElementById('error-message');
-
-var validatedEmail;
-
-form.addEventListener('submit', (e) => {
-    e.preventDefault();
-})
 
 let validateInitialEmail = (e) => {
     let messages = [];
@@ -85,15 +78,15 @@ let validateInitialEmail = (e) => {
         messages.push("Email is required")
     } else if (patt.test(email.value)) { // if field contains @ sign
         validatedEmail = email.value; // add email into var validatedEmail for later use
-        return 'valid'
     } else { // if field lacks @ sign
         messages.push("Please enter a valid email address")
     }
     if (messages.length > 0) {
         error.innerText = messages // add all relevant error messages to the error html element
-        e.preventDefault() 
     }
 }
+
+
 
 
 
@@ -114,9 +107,11 @@ let closeModal = (modal) => { // remove the active class from the selected modal
 
 getStartedButton.addEventListener('click', () => {
     validateInitialEmail(); // check that email was entered on landing page
-    document.getElementById("user-email").value = validatedEmail; // if so, add that email into modal email box
-    const modWindow = document.querySelector(getStartedButton.dataset.modalTarget) // dataset lets us access the data attributes (eg. the value of the modal target) of getStartedButton as if getStartedButtonw is an object -- thus assign the VALUE of getStartedButton's modal target (modal-step-1) to var modal window
-    openModal(modWindow) // open the modal window
+    if (validatedEmail) { // if email is a truthy value
+        document.getElementById("user-email").value = validatedEmail; // add that email into modal email box
+        const modWindow = document.querySelector(getStartedButton.dataset.modalTarget) // dataset lets us access the data attributes (eg. the value of the modal target) of getStartedButton as if getStartedButtonw is an object -- thus assign the VALUE of getStartedButton's modal target (modal-step-1) to var modal window
+        openModal(modWindow) // open the modal window
+    }
 })
 
 closeModals.forEach(button => { // for each element that contains the close modal data attribute, treat it like a button
@@ -136,6 +131,28 @@ overlay.addEventListener('click', () => {
     modals.forEach((modWindow) => { // close them each
         closeModal(modWindow);
     })
+})
+
+// Sign in modal only
+const signInLanding = document.getElementById('sign-in')
+const signInButton = document.querySelector('.sign-in')
+
+signInLanding.addEventListener('click', () => {
+    const modWindow = document.querySelector(signInLanding.dataset.modalTarget)
+    openModal(modWindow)
+})
+
+signInButton.addEventListener('click', () => {
+    const signInModal = document.getElementById('modal-step-0')
+    const signInInputs = signInModal.querySelectorAll('.modal-input')
+
+    if (signInInputs.length > 0) {
+        if (signInInputs[0].value != "" && signInInputs[1].value != "") {
+            window.location.href = "./other.html"
+        } else {
+            document.getElementById('modal-error-0').innerText = "Please fill in all fields to proceed"
+        }
+    }
 })
 
 
@@ -161,6 +178,7 @@ nextButton.forEach(button => {
                     document.getElementById('modal-error-II').innerText = "Please select a plan to proceed."
                 }
             }
+        } else if (currentModal.id === 'modal-step-IIII') { // because can't open next modal
         } else {
             goToNext();
         }
@@ -206,5 +224,5 @@ submitUserButton.addEventListener('click', () => {
     // clear all fields
     userEmail.value = ''
     userPassword.value = ''
-    document.querySelector('input[name="plan"]:checked').checked = false;
+    document.querySelector('input[name="plan"]').checked = false;
 })

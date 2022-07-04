@@ -23,9 +23,23 @@
                     <option value="English">English</option>
                     <option value="French">French</option>
                 </select>
-                <button id="signin">Sign in</button>
+                <button id="sign-in" data-modal-target="#modal-step-0">Sign in</button>
             </nav>
         </header>
+
+        <div class="modal" id="sign-in-modal">
+            <div class="modal-step" id="modal-step-0">
+                <header>
+                    <h6>WELCOME BACK</h6>
+                    <button data-close-modal class="close-modal">&times;</button>
+                    <h1>Sign in to continue watching</h1>
+                </header>
+                <input class="modal-input" type="text" id="return-email" autocomplete="off" placeholder="Enter your email">
+                <input class="modal-input" type="password" id="return-password" autocomplete="off" placeholder="Enter your password">
+                <p id="modal-error-0"></p>
+                <button class="sign-in">Sign In</button>
+            </div>
+        </div>
 
         <section class="advert">
             <h1>Unlimited movies, TV shows, and more.</h1>
@@ -36,14 +50,13 @@
             <p class="grid-item" id="ready-to-watch">Ready to watch? Enter your email to create or restart your membership.</p>
             <div class="grid-item">
                 <div class="email-form">
-                    <form name="email-form" id="email-form">
-                    <input type="text" id="email-address" autocomplete="off">
+                    <input type="text" id="email-address" autocomplete="off" required>
                     <label class="label-name">
                     <span class="form-name">Email address</span> <!-- not writing in label directly so we can animate separately -->
                     </label>
                 </div>
-                <input type="submit" id="get-started" value="Get Started" data-modal-target="#modal-step-I">
-                    </form>
+    
+                <input type="button" id="get-started" value="Get Started" data-modal-target="#modal-step-I">
             </div>
         </section>
         <div id="error-message" class="grid-item"></div>

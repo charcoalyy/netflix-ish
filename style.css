@@ -39,7 +39,7 @@ body {
     z-index: 5;
 }
 
-#signin {
+#sign-in {
     all: unset;
     cursor: pointer;
     font-family: 'Lato';
@@ -189,7 +189,7 @@ body {
     transition-duration: 0.3s;
 }
 
-#get-started:hover, #signin:hover, .watch-free:hover {
+#get-started:hover, #sign-in:hover, .watch-free:hover {
     background-color: var(--primary-hover-color);
 }
 
@@ -240,7 +240,7 @@ form {
     font-weight: 700;
 }
 
-#modal-error-I, #modal-error-II {
+#modal-error-I, #modal-error-II, #modal-error-0 {
     padding-top: 0.3rem;
     font-size: 10px;
     color: var(--primary-color);
@@ -299,7 +299,7 @@ form {
     pointer-events: all;
 }
 
-.next, .submit-user-info {
+.next, .submit-user-info, .sign-in {
     all: unset;
     cursor: pointer;
     text-align: center;
@@ -669,12 +669,12 @@ i {
     }
 }
 
-@media only screen and (max-width: 784px) {
+@media only screen and (max-width: 834px) {
     .landing {
         height: 100%;
         padding-bottom: 80px;
     }
-    #signin, #languageselect {
+    #sign-in, #languageselect {
         font-size: 12px;
     }
     #languageselect {
