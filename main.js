@@ -1,54 +1,42 @@
 // Red tabs
-// Make a list of all the elements with the tab item class (the buttons) and the outer block class (the content)
-const tabItems = document.querySelectorAll('.tab-item');
-const tabContentItems = document.querySelectorAll('.OUTER-BLOCK-BOX');
+const tabItems = document.querySelectorAll('.tab-item'); // list all elements with tab item class (the buttons)
+const tabContentItems = document.querySelectorAll('.OUTER-BLOCK-BOX'); // list all elements with outer block class (the content)
 
-// Remove all borders by looping through each tab item
 function removeBorder() {
-    tabItems.forEach(item => item.classList.remove('tab-border'));
+    tabItems.forEach(item => item.classList.remove('tab-border')); // loop through each tab item and remove border class
 }
 
-// Hide all content by looping through each tab content's outer block box
 function removeShow() {
-    tabContentItems.forEach(item => item.classList.remove('show'));
+    tabContentItems.forEach(item => item.classList.remove('show')); // loop through and hide each tab's content
 }
 
-// Select the tab content item, remove everything, then add border class and show class to the selected tab
 function selectItem(ev) {
-    removeBorder(); 
+    removeBorder(); // first remove all borders and hide all content
     removeShow();
-    this.classList.add('tab-border'); // 'this' is dictated by event listener, ie. the tab item you clicked
-    const tabContentItemSelected = document.querySelector(`#${this.id}-content`); // 'this' has an id of tab-1, so want to find id of tab-1-content
+    this.classList.add('tab-border'); // add border class to selected tab ('this' is dictated by event listener, ie. the tab item you clicked)
+    const tabContentItemSelected = document.querySelector(`#${this.id}-content`); // add show class to selected tab's content ('this' has an id of tab-1, so want to find id of tab-1-content)
     tabContentItemSelected.classList.add('show');
 }
 
-// Listen for tab click and apply the above function
 tabItems.forEach(item => item.addEventListener('click', selectItem));
 
 
 
-
-
-
 // Collapsible FAQ
-// Make a list of all the elements with the collapsible class (the buttons) and the content class (the content)
-const collapsibleButtons = document.querySelectorAll('.collapsible');
-const collapsibleContent = document.querySelectorAll('.collapsible-content');
+const collapsibleButtons = document.querySelectorAll('.collapsible'); // list all elements with collapsible class (the buttons)
+const collapsibleContent = document.querySelectorAll('.collapsible-content'); // list all elements with content class (the content)
 
-// Remove activated dark colour on all buttons
 function removeActiveStates() {
-    collapsibleButtons.forEach(item => item.classList.remove('active-collapsible'));
+    collapsibleButtons.forEach(item => item.classList.remove('active-collapsible')); // remove activated dark colour
 }
 
-// Collapse all content
 function inactivateAllContent() {
-    collapsibleContent.forEach(item => item.classList.add('inactive-content'));
+    collapsibleContent.forEach(item => item.classList.add('inactive-content')); // collapse all content
 }
 
-// When one button is clicked, first hide all content
 function openItem(ev) {
-    inactivateAllContent();
-    const collapsibleContentSelected = document.querySelector(`#${this.id}-content`); // grab the collapsible's associated content
+    inactivateAllContent(); // first hide all content
+    const collapsibleContentSelected = document.querySelector(`#${this.id}-content`); // grab the selected collapsible's associated content
     if (this.classList.contains('active-collapsible') === true) { // if button is active, inactivate all & close its content
         removeActiveStates();
         collapsibleContentSelected.style.maxHeight = 0;
@@ -61,12 +49,11 @@ function openItem(ev) {
     }
 }
 
-// Listen for button click and apply the above function
 collapsibleButtons.forEach(item => item.addEventListener('click', openItem));
 
 
 
-// Email form validation
+// Landing email form validation
 const email = document.getElementById('email-address');
 const error = document.getElementById('error-message');
 
@@ -83,10 +70,14 @@ let validateInitialEmail = (e) => {
     }
     if (messages.length > 0) {
         error.innerText = messages // add all relevant error messages to the error html element
+        email.addEventListener('input', () => { // now check to see if user fixes the error
+            if (!patt.test(email.value) || email.value === "" || email.value === null) {
+            } else {
+                error.innerText = ""
+            }
+        })
     }
 }
-
-
 
 
 
@@ -105,6 +96,13 @@ let closeModal = (modal) => { // remove the active class from the selected modal
     overlay.classList.remove('active');
 }
 
+let clearModalErrors = () => { // hide all red errors
+    const errors = document.getElementsByClassName('modal-error')
+    for (let i = 0; i < errors.length; i++) {
+        errors[i].innerText = ""
+    }
+}
+
 getStartedButton.addEventListener('click', () => {
     validateInitialEmail(); // check that email was entered on landing page
     if (validatedEmail) { // if email is a truthy value
@@ -116,6 +114,7 @@ getStartedButton.addEventListener('click', () => {
 
 closeModals.forEach(button => { // for each element that contains the close modal data attribute, treat it like a button
     button.addEventListener('click', () => { // when clicked,
+        clearModalErrors();
         const modWindow = button.closest('.modal-step') // closest lets us access the closest PARENT element with the class modal-step (doing this bc our close button is inside (a child) of the modal window we want to close) -- thus assign the button's parent modal to var modal window
         closeModal(modWindow) // close the modal window
     })
@@ -130,8 +129,11 @@ overlay.addEventListener('click', () => {
     const modals = document.querySelectorAll('.modal-step.active') // select the currently open modals
     modals.forEach((modWindow) => { // close them each
         closeModal(modWindow);
+        clearModalErrors();
     })
 })
+
+
 
 // Sign in modal only
 const signInLanding = document.getElementById('sign-in')
@@ -142,48 +144,69 @@ signInLanding.addEventListener('click', () => {
     openModal(modWindow)
 })
 
-signInButton.addEventListener('click', () => {
+let logIn = () => {
     const signInModal = document.getElementById('modal-step-0')
     const signInInputs = signInModal.querySelectorAll('.modal-input')
 
     if (signInInputs.length > 0) {
-        if (signInInputs[0].value != "" && signInInputs[1].value != "") {
-            window.location.href = "./other.html"
+        if (signInInputs[0].value != "" && signInInputs[1].value != "") { // if both inputs filled
+            window.location.href = "./other.html" // redirect to home page
         } else {
             document.getElementById('modal-error-0').innerText = "Please fill in all fields to proceed"
+            signInModal.addEventListener('input', () => { // now check to see if user fixes the error
+                if (signInInputs[0].value != "" && signInInputs[1].value != "") {
+                    document.getElementById('modal-error-0').innerText = ""
+                } 
+            })
         }
     }
-})
+}
+
+signInButton.addEventListener('click', logIn) // login if button within modal is clicked
+
 
 
 // Modal advancing
 const nextButton = document.querySelectorAll('.next')
 
 nextButton.forEach(button => {
-    button.addEventListener('click', () => {
-        const currentModal = document.querySelector('.active.modal-step') // select currently active modal
-        const currentInputs = currentModal.querySelectorAll('.modal-input') // list all inputs inside current modal
-    
-        if (currentInputs.length > 0) { // if there are inputs, validate them
-            if (currentInputs[0].type === "text" ) {
-                if (currentInputs[0].value != "" && currentInputs[1].value != "") { // if email and password are both filled in
-                    goToNext();
-                } else {
-                    document.getElementById('modal-error-I').innerText = "Please fill in all fields to proceed."
-                }
-            } else if (currentInputs[0].type === "radio") {
-                if (currentInputs[0].checked === true || currentInputs[1].checked === true || currentInputs[2].checked === true) { // if any radio is selected
-                    goToNext();
-                } else {
-                    document.getElementById('modal-error-II').innerText = "Please select a plan to proceed."
-                }
-            }
-        } else if (currentModal.id === 'modal-step-IIII') { // because can't open next modal
-        } else {
-            goToNext();
-        }
+    button.addEventListener('click', () => { 
+        verifyModalInputs();
     })
 })
+
+let verifyModalInputs = () => {
+    const currentModal = document.querySelector('.active.modal-step') // select currently active modal
+    const currentInputs = currentModal.querySelectorAll('.modal-input') // list all inputs inside current modal
+    
+    if (currentInputs.length > 0) { // if there are inputs, validate them
+        if (currentInputs[0].type === "text" ) {
+            if (currentInputs[0].value != "" && currentInputs[1].value != "") { // if email and password are both filled in
+                goToNext();
+            } else {
+                document.getElementById('modal-error-I').innerText = "Please fill in all fields to proceed."
+                currentModal.addEventListener('input', () => { // now check to see if user fixes the error
+                    if (currentInputs[0].value != "" && currentInputs[1].value != "") {
+                        document.getElementById('modal-error-I').innerText = ""
+                    }
+                })
+            }
+        } else if (currentInputs[0].type === "radio") {
+            if (currentInputs[0].checked === true || currentInputs[1].checked === true || currentInputs[2].checked === true) { // if any radio is selected
+                goToNext();
+            } else {
+                document.getElementById('modal-error-II').innerText = "Please select a plan to proceed."
+                currentModal.addEventListener('input', () => { // now check to see if user fixes the error
+                    if (currentInputs[0].checked === true || currentInputs[1].checked === true || currentInputs[2].checked === true) {
+                        document.getElementById('modal-error-II').innerText = ""
+                    }
+                })
+            }
+        }
+    } else {
+        goToNext();
+    }
+}
 
 let goToNext = () => {
     const currentModal = document.querySelector('.active.modal-step') // select currently active modal
@@ -196,33 +219,55 @@ let goToNext = () => {
 
 // Modal submission
 const submitUserButton = document.querySelector('.submit-user-info')
-var users = [];
+var users = []
 
-submitUserButton.addEventListener('click', () => {
+let submitNewUser = () => {
+    users = JSON.parse(localStorage.getItem("user data")) || [] // load previously stored users into array first
+
     var userEmail = document.getElementById('user-email') // find input field for email
     var userPassword = document.getElementById('user-password') // find input field for password
-    var userPlan; // establish empty variable for price plan
-
-    if (document.getElementById('user-plan-b').checked) {
-        userPlan = document.getElementById('user-plan-b').value; // find value of radio button clicked
-    } else if (document.getElementById('user-plan-s').checked) {
-        userPlan = document.getElementById('user-plan-s').value;
-    } else if (document.getElementById('user-plan-p').checked) {
-        userPlan = document.getElementById('user-plan-p').value;
-    }
+    var userPlan = document.querySelector('input[name="plan"]:checked') // find checked radio button
 
     const newUser = { // create object with user info
         email: userEmail.value,
         password: userPassword.value,
-        plan: userPlan
+        plan: userPlan.value
     }
     users.push(newUser) // add to list of users
 
     const userData = JSON.stringify(users)
     localStorage.setItem("user data", userData) // store for later access
 
-    // clear all fields
-    userEmail.value = ''
+    userEmail.value = '' // clear all fields
     userPassword.value = ''
     document.querySelector('input[name="plan"]').checked = false;
+}
+
+submitUserButton.addEventListener('click', submitNewUser)
+
+
+
+// Modal advancing and submission but for ENTER key
+document.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        const landingEmail = document.getElementById('email-address')
+        if (document.getElementById('modal-step-0').classList.contains('active')) {
+            logIn();
+        } else if (document.getElementById('modal-step-I').classList.contains('active') || document.getElementById('modal-step-II').classList.contains('active')) {
+            e.preventDefault();
+            verifyModalInputs();
+        } else if (document.getElementById('modal-step-III').classList.contains('active')) {
+            submitNewUser();
+            goToNext();
+        } else if (document.getElementById('modal-step-IIII').classList.contains('active')) {
+            window.location.href = "./other.html"
+        } else if (landingEmail === document.activeElement) {
+            validateInitialEmail();
+            if (validatedEmail) { 
+                document.getElementById("user-email").value = validatedEmail;
+                const modWindow = document.querySelector(getStartedButton.dataset.modalTarget)
+                openModal(modWindow)
+            }
+        }
+    }
 })
