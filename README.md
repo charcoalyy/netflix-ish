@@ -1,2 +1,2 @@
 # netflix-ish
-modified version of the Canadian Netflix landing page
+remade version of the Netflix landing page
