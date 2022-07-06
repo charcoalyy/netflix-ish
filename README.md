@@ -5,4 +5,5 @@ seeking to try my hand at creating a more interactive website from scratch, i co
 - customized client-side validation that responds readily to user input was implemented
 - small feedback animations were added to better guide the user
 - the site is responsive to different screen sizes
+- data on new users are sent to local storage 
 - all buttons are clickable!
